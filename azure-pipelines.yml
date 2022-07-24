@@ -1,0 +1,34 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+resources:
+  containers:
+    - container: rabbitmq
+      image: rabbitmq:3.9-alpine
+      networks:
+      - testes
+      ports:
+        - 5672:5672
+    - container: mongodb
+      image: mongo:latest
+      networks:
+      - testes
+      env:
+        MONGO_INITDB_ROOT_USERNAME: root
+        MONGO_INITDB_ROOT_PASSWORD: root
+      ports:
+        - 27017:27017
+
+steps:
+  - script: docker container ls
+    displayName: Exibir containers em execução
+
+
