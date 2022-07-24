@@ -6,9 +6,6 @@
 trigger:
 - main
 
-pool:
-  vmImage: ubuntu-latest
-
 resources:
   containers:
     - container: rabbitmq
@@ -26,6 +23,13 @@ resources:
         MONGO_INITDB_ROOT_PASSWORD: root
       ports:
         - 27017:27017
+
+pool:
+  vmImage: ubuntu-latest
+
+services:
+  rabbitmq: rabbitmq
+  mongodb: mongodb
 
 steps:
   - script: docker container ls
